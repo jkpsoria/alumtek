@@ -1,0 +1,73 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{%block loginstyle %}
+<style>
+    .gradient-custom-2 {
+        /* fallback for old browsers */
+        background: #fccb90;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: #500e0e;
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #500e0e;
+    }
+
+    @media (min-width: 768px) {
+        .gradient-form {
+            height: 100vh !important;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .gradient-custom-2 {
+            border-top-right-radius: .3rem;
+            border-bottom-right-radius: .3rem;
+        }
+    }
+
+    .modal {
+        text-align: center;
+    }
+
+    /* Modal Content/Box */
+</style>
+
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container py-5 h-100 w-75">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+            <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                    <div class="card-body p-md-5 mx-md-4">
+                        <div class="text-center">
+                            <h4 class="mt-1 mb-5 pb-1">Add Curriculum</h4>
+                        </div>
+                        <form id="form" action="" method="POST" class="surveyform" style="margin-top: 0%;">
+                            {% csrf_token %}
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="question1">Curriculum</label>
+                                <input type="text" name="curriculum" class="form-control"
+                                    placeholder="Enter Curriculum Title" />
+                            </div>
+                            <div class="text-center pt-1 mb-5 pb-1">
+                                <button type="submit" name="btnSubmit" id="btnSubmit"
+                                    class="btn btn-warning float-left">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div id="main">
+    <div class="fof" style="color: bisque;">
+        <h1>Please Log In!</h1>
+    </div>
+  </div>
+{% endif %}
+{%endblock %}

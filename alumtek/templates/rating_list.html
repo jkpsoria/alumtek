@@ -1,0 +1,43 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="row">
+  <center>
+    <div class="card shadow mb-4 w-75">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-danger">Rating per Course Summary</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="75%"cellspacing="0">
+          <thead>
+            <tr>
+              <th scope="col">Course Code</th>
+              <th scope="col">Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for average in average %}
+            <tr>
+              <td scope="row" style="color: #666666;">{{average.csitcourse}}</td>
+              <td scope="row" style="color: #666666;">{{average.avg_rating}}</td>
+
+            </tr>
+            {%endfor%}
+  
+          </tbody>
+        </table>  
+      </div>
+      </div>
+    </div>
+  </center>
+  </div>
+  {%else%}
+  <div id="main">
+    <div class="fof" style="color:bisque;">
+        <h1>Please Log In!</h1>
+    </div>
+  </div>
+    {%endif%}
+  {%endblock%}

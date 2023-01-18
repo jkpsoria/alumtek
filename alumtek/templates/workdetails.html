@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+<style>
+  body {
+    background-color: #ebebeb;
+  }
+</style>
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="container " style=" margin-left: 20%;">
+  <div class="main-body w-100">
+    <div class="row gutters-sm ">
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="header_work">
+              <div class="container contact-form">
+                <form id="form" action="" method="POST">
+                  {% csrf_token %}
+                  <h3>Work Details</h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <br>
+                        <div class="form-group"><label class="label">Employed</label><br>
+                          <p class="text-muted mb-0">{{user.username}}</p>
+                          <div class="form-group"><label class="label"> Employed</label><br>
+                            <select class="form-select" aria-label="Default select example" name="employed"
+                              id="employed">
+                              <option selected disabled>Please Select</option>
+                              <option value="Yes">Yes</option>
+                              <option value="No">No</option>
+                            </select>
+                          </div><br>
+                          <div class="form-group">
+                            <label class="label">Work Place</label> <br>
+                            <select class="form-select" aria-label="Default select example" name="workPlace"
+                              id="workPlace">
+                              <option selected disabled>Please Select</option>
+                              <option value="Local">Local</option>
+                              <option value="International">International</option>
+                              <option value="None">None</option>
+                            </select>
+                          </div><br>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="label">Years of Employment</label>
+                            <input type="text" name="yearsEmployment" id="yearsEmployment" class="form-control"
+                              placeholder="Enter Years of Employment" value="" /><br>
+                          </div>
+                          <label class="label">Year Graduated</label>
+                          <input type="text" name="yearGraduated" id="yearGraduated" class="form-control"
+                            placeholder="Year Graduated" value="" /><br>
+                          <div class="form-group">
+                            <label class="label">Salary Range</label> <br>
+                            <select class="form-select" aria-label="Default select example" name="salaryRange"
+                              id="salaryRange">
+                              <option value="PHP 10,000.00 - PHP 25,000.00">PHP 10,000.00 - PHP 25,000.00</option>
+                              <option value="PHP PHP 25,0001.00 - PHP 40,000.00">PHP 25,0001.00 - PHP 40,000.00</option>
+                              <option value="PHP 40,001.00 - PHP 60,000.00">PHP 40,001.00 - PHP 60,000.00</option>
+                              <option value="Above PHP 60,000.00">Above PHP 60,000.00</option>
+                            </select>
+                          </div>
+                          <br><br>
+                          <div class="form-group">
+                            <button type="submit" name="btnSubmit" id="btnSubmit"
+                              class="btn btn-warning float-end">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!---->
+
+
+{% else %}
+<div id="main">
+  <div class="fof" style="color:bisque;">
+      <h1>Please Log In!</h1>
+  </div>
+</div>{% endif %}
+{%endblock %}

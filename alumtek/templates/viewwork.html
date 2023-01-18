@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block loginstyle %}
+<style>
+  body{
+    background-color: #ebebeb;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<section>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4" style="margin-top: 20%;">
+                    <div class="card-body text-center">
+                        {% if user.profile.profile_pic %}
+                        <img src="{{user.profile.profile_pic.url}}" class="rounded-circle" width="200" height="200">
+                        {% endif %}
+                        <h5 class="my-3">{{user.first_name}} {{user.last_name}}</h5>
+                        <p class="text-muted mb-1">{{user.email}}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <button type="button" class="btn btn-warning"><a href="{% url 'change_password' %}">Change
+                                    Password</a></button>
+                            <button type="button" class="btn btn-outline-warning ms-1"><a
+                                    href="{% url 'AlumTeknew:my_work_details_view' %}">Add Work Details</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                    {% for viework in viework %}
+                                {% if user.id == viework.alumni %}
+                                <p class="mb-0">Employed</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{viework.employed}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Work Place</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{viework.workPlace}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Year Graduated</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{viework.yearGraduated}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Years of Employment</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{viework.yearsEmployment}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Salary Range</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{viework.salaryRange}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        
+                      
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Modal1">
+                                    Edit </button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteWorkDetail">
+                                    Delete </button>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="Modal1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-body">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {% for viework in viework %}
+                                    {% if user.id == viework.alumni %}
+                                    <label for="recipient-name" class="col-form-label">Employed</label><br>
+                                    <select class="form-select" aria-label="Default select example" name="employed"
+                                        id="employed">
+                                        <option value="{{viework.employed}}">{{viework.employed}}</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <label for="recipient-name" class="col-form-label">Work</label><br>
+                                    <select class="form-select" aria-label="Default select example" name="workPlace"
+                                        id="workPlace">
+                                        <option value="{{viework.workPlace}}">{{viework.workPlace}}</option>
+                                        <option value="Local">Local</option>
+                                        <option value="International">International</option>
+                                        <option value="None">None</option>
+                                    </select>
+                                    <label for="recipient-name" class="col-form-label">Years of Employment</label>
+                                    <input type="text" name="yearsEmployment" value="{{viework.yearsEmployment}}"
+                                        class="form-control" id="yearsEmployment">
+                                    <label for="recipient-name" class="col-form-label">Year Graduated</label>
+                                    <input type="text" name="yearGraduated" value="{{viework.yearGraduated}}"
+                                        class="form-control" id="yearGraduated">
+                                    <label for="recipient-name" class="col-form-label">Salary Range</label><br>
+                                    <select class="form-select" aria-label="Default select example" name="salaryRange"
+                                        id="salaryRange">
+                                        <option value="{{viework.salaryRange}}">{{viework.salaryRange}}
+                                        </option>
+                                        <option value="PHP 10,000.00 - PHP 25,000.00">PHP 10,000.00 - PHP 25,000.00</option>
+                                        <option value="PHP PHP 25,0001.00 - PHP 40,000.00">PHP 25,0001.00 - PHP 40,000.00</option>
+                                        <option value="PHP 40,001.00 - PHP 60,000.00">PHP 40,001.00 - PHP 60,000.00</option>
+                                        <option value="Above PHP 60,000.00">Above PHP 60,000.00</option>
+                                    </select>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        Are you sure you want to save the changes?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="btnWorkDetails" name="btnWorkDetails" class="btn btn-primary">Save
+                            changes</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Delete Modal-->
+        <div id="deleteWorkDetail" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Delete Work Details?</h4>
+                </div>
+                <form method="POST">
+                  {% for viework in viework %}
+                  {% if user.id == viework.alumni %}
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <input type="text" name="id" value={{viework.id}} hidden>
+                    <h5> Are you sure you want to Work Details?</h5>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btndeleteWorkDetails" name="btndeleteWorkDetails"
+                      class="btn btn-danger">Delete</button>
+                  </div>
+                  {%endif%}
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+        <!---->
+</section>
+{% else %}
+<div id="main">
+    <div class="fof" style="color:#500e0e;">
+        <h1>Please Log In!</h1>
+    </div>
+  </div>
+  {% endif %}
+{%endblock %}

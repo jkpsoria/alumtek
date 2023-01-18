@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="jobboard">
+    <div class="jobboard-text">
+      <h6>Searching for a next job?</h6>
+      Find your next dream job!
+    </div>
+    <br>
+    <form>
+      <div class="input-group w-75">
+        <input name="q" type="text" placeholder="Search" class="form-control form-control-lg" /> &nbsp;&nbsp;
+        <div class="input-group-append">
+          <button class="btn btn-dark btn-lg">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div class="second-container">
+    <div class="container">
+      <div class="row">
+        {% for jobdetails in jobdetails %}
+        <div class="col-lg-4">
+          <div class="card card-margin">
+            <div class="card-header no-border">
+              <h5 class="card-title">{{jobdetails.jobtitle}}</h5>
+            </div>
+            <div class="card-body pt-0">
+              <div class="widget-49">
+                <div class="widget-49-title-wrapper">
+
+                  <div class="widget-49-meeting-info">
+                    <span class="widget-49-pro-title">{{jobdetails.position}}</span>
+                    <span class="widget-49-meeting-time">{{jobdetails.companyName}}</span>
+                    <span class="widget-49-meeting-time">{{jobdetails.qualifications}}</span>
+                    <span class="widget-49-meeting-time">{{jobdetails.workDetails}}</span>
+                    <span class="widget-49-meeting-time">{{jobdetails.jobtype}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{%else%}
+<div id="main">
+  <div class="fof" style="color: bisque;">
+      <h1>Please Log In!</h1>
+  </div>
+</div>
+{%endif%}
+{%endblock%}

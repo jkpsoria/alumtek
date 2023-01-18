@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{%block loginstyle%}
+<style>
+  .hello{
+    color: white;
+    margin-top: 3%;
+    margin-left: 12%;
+    font-size: 30px;
+  }
+  span{
+    color: #E0C007;
+  }
+</style>
+{%endblock%}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="hello">
+  Hello, <span>{{user.first_name}}</span>!
+  <h4> Please select your curriculum!</h4>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        {% for product in products %}
+        <div class="card card-margin">
+          <div class="card-header no-border">
+            <a href="{% url 'AlumTeknew:course_details' product.curriculum %}">
+            <h5 class="card-title">{{product.curriculum}}</h5>
+          </a>
+          </div>
+          <div class="card-body pt-0">
+            <div class="widget-49">
+              <div class="widget-49-meeting-action">
+                <a href="{% url 'AlumTeknew:course_details' product.curriculum %}" class="btn btn-sm btn-flash-border-primary">View Subjects</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor product %}
+      </div>
+      </div>
+      </div>
+</div>
+{%else%}
+<div id="main">
+  <div class="fof" style="color:bisque;">
+      <h1>Please Log In!</h1>
+  </div>
+</div>
+{%endif%}
+{%endblock%}

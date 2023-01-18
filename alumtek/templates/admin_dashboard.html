@@ -1,0 +1,435 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block loginstyle %}
+<style>
+  body {
+    background-color: #ebebeb;
+  }
+
+  .chartBox {
+    width: 400px;
+    padding: 20px;
+    background: white;
+  }
+
+  /* Style the header */
+
+  /* Container for flexboxes */
+  .row {
+    display: -webkit-flex;
+    display: flex;
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+  .card{
+    margin-top: 2%;
+  }
+  /* Create three equal columns that sits next to each other */
+  .column {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 10px;
+    height: 150px;
+    /* Should be removed. Only for demonstration */
+
+  }
+
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media (max-width: 600px) {
+    .row {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+  }
+</style>
+{%endblock%}
+
+{% block content %}
+<div id="content-wrapper" class="d-flex flex-column">
+  <!-- Main Content -->
+  <div id="content">
+    <div class="row" style="margin-top: 4%;">
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-uppercase mb-1" style="color: #f8c400; font-size:large;">
+                  Number of Users</div>
+                <div class="h3 mb-0 font-weight-bold text-gray-800">{{totalUser}}</div>
+              </div>
+              <div class="col-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#610A0C" class="bi bi-person"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-uppercase mb-1" style="color: #f8c400; font-size:x-large;">
+                  Active Users</div>
+                <div class="h3 mb-0 font-weight-bold text-gray-800">{{activeUser}}</div>
+              </div>
+              <div class="col-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#610a0c"
+                  class="bi bi-people-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-uppercase mb-1" style="color: #f8c400; font-size:x-large;">
+                  Inactive User
+                </div>
+                <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{inActiveUser}}</div>
+                  </div>
+                  <div class="col-auto">
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#610A0C"
+                class="bi bi-person-fill-x" viewBox="0 0 16 16">
+                <path
+                  d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
+                <path
+                  d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708Z" />
+              </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Requests Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-uppercase mb-1" style="color: #f8c400; font-size:large;">
+                  Pending Requests</div>
+                <div class="h3 mb-0 font-weight-bold text-gray-800">{{idApplicationList.count}}</div>
+              </div>
+              <div class="col-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#610a0c" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                  <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                </svg>              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!---->
+<div class="row">
+
+  <!-- Area Chart -->
+  <div class="col-xl-8 col-lg-7 w-100">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Survey Word Cloud</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-area">
+          <div class="row">
+            <div class="col">
+              <figure class="highcharts-figure">
+                <div id="container" style="width: 400px;height: 400px;"></div>
+              </figure>
+            </div>
+            <div class="col">
+              <figure class="highcharts-figure">
+                <div id="container1" style="width: 400px;height: 400px;"></div>
+              </figure>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+              <figure class="highcharts-figure">
+                <div id="container2" style="width: 400px;height: 400px;"></div>
+              </figure>
+            </div>
+            <div class="col">
+              <figure class="highcharts-figure">
+                <div id="container3" style="width: 400px;height: 400px;"></div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-danger">Alumni Working Details Summary</h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <div class="chartBox">
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+        <div class="col">
+          <div class="chartBox">
+            <canvas id="myChart2"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div class="row">
+          <br>
+          <div class="col">
+            <table class="table table-bordered" id="dataTable" width="75%" cellspacing="0">
+              <tr>
+                <th>Year Graduated</th>
+                <th>Number of Alumni</th>
+              </tr>
+              {% for countYear in countYear %}
+              <tr>
+                <td>{{countYear.yearGraduated}}</td>
+                <td>{{countYear.total}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="col-sm">
+            <table class="table table-bordered" id="dataTable" width="75%" cellspacing="0">
+              <tr>
+                <th>Salary Range</th>
+                <th>Number of Alumni</th>
+              </tr>
+              {% for countSalary in countSalary %}
+              <tr>
+                <td> {{countSalary.salaryRange}}</td>
+                <td>{{countSalary.total}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-danger">Alumni ID Request</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+          <div class="col">
+            <table class="table table-bordered" id="dataTable" width="75%" cellspacing="0">
+              <tr>
+                <th>Alumni</th>
+                <th>Status</th>
+              </tr>
+              {% for idApplicationList in idApplicationList %}
+              <tr>
+                <td> {{idApplicationList.idNumber}}</td>
+                <td>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#Modal1-{{idApplicationList.id}}">
+                    Action </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="Modal1-{{idApplicationList.id}}" data-bs-backdrop="static"
+                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Alumni ID Process</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="form" action="" method="POST">
+                          {% csrf_token %}
+                          <div class="modal-body">
+                            <input type="text" name="id" value={{idApplicationList.id}} hidden>
+                            Process Alumni ID of {{idApplicationList.idNumber}}? {{idApplicationList.idNumber}} will be
+                            notified.
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="btnApproveIDProcessing"
+                              name="btnApproveIDProcessing">Submit</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+      </td>
+      </tr>
+      {% endfor %}
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script>
+  const text =
+    " {%for q1 in q1 %} {{q1.question1}} {%endfor%}"
+  lines = text.replace(/[():'?0-9]+/g, '').split(/[,\. ]+/g),
+    data = lines.reduce((arr, word) => {
+      let obj = Highcharts.find(arr, obj => obj.name === word);
+      if (obj) {
+        obj.weight += 1;
+      } else {
+        obj = {
+          name: word,
+          weight: 1
+        };
+        arr.push(obj);
+      }
+      return arr;
+    }, []);
+
+  Highcharts.chart('container', {
+    series: [{
+      type: 'wordcloud',
+      data,
+      name: 'Occurrences'
+    }],
+    title: {
+      text: 'Courses that helped in Improving Skills'
+    },
+    credits: {
+      enabled: false
+    },
+  });
+
+</script>
+<script>
+  const text1 =
+    " {%for q1 in q1 %} {{q1.question2}} {%endfor%}"
+  lines = text1.replace(/[():'?0-9]+/g,).split(/[,\. ]+/g), 
+    data = lines.reduce((arr, word) => { 
+      let obj = Highcharts.find(arr, obj => obj.name === word); 
+      if (obj) { 
+        obj.weight += 1; 
+      } else {
+        obj = {
+          name: word,
+          weight: 1
+        };
+        arr.push(obj); 
+      }
+      return arr; 
+    }, []);
+
+  Highcharts.chart('container1', {
+    series: [{
+      type: 'wordcloud',
+      data,
+      name: 'Occurrences'
+    }],
+    title: {
+      text: 'Topics that helped in Improving Skills'
+    },
+    credits: {
+      enabled: false
+    },
+  });
+
+</script>
+<script>
+  const text2 =
+    " {%for q1 in q1 %} {{q1.question3}} {%endfor%}"
+  lines = text2.replace(/[():'?0-9]+/g, '').split(/[,\. ]+/g),
+    data = lines.reduce((arr, word) => {
+      let obj = Highcharts.find(arr, obj => obj.name === word);
+      if (obj) {
+        obj.weight += 1;
+      } else {
+        obj = {
+          name: word,
+          weight: 1
+        };
+        arr.push(obj);
+      }
+      return arr;
+    }, []);
+
+  Highcharts.chart('container2', {
+    series: [{
+      type: 'wordcloud',
+      data,
+      name: 'Occurrences'
+    }],
+    title: {
+      text: 'Courses that needs Improvement'
+    },
+    credits: {
+      enabled: false
+    },
+  });
+
+</script>
+<script>
+  const text3 =
+    " {%for q1 in q1 %} {{q1.question4}} {%endfor%}"
+  lines = text3.replace(/[():'?0-9]+/g, '').split(/[,\. ]+/g),
+    data = lines.reduce((arr, word) => {
+      let obj = Highcharts.find(arr, obj => obj.name === word);
+      if (obj) {
+        obj.weight += 1;
+      } else {
+        obj = {
+          name: word,
+          weight: 1
+        };
+        arr.push(obj);
+      }
+      return arr;
+    }, []);
+
+  Highcharts.chart('container3', {
+    series: [{
+      type: 'wordcloud',
+      data,
+      name: 'Occurrences'
+    }],
+    title: {
+      text: 'Topics that needs Improvement'
+    },
+    credits: {
+      enabled: false
+    },
+  });
+
+</script>
+{% endblock %}

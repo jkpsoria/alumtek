@@ -1,0 +1,368 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block loginstyle %}
+<style>
+    .star-rating {
+    font-size: 0;
+    white-space: nowrap;
+    display: inline-block;
+    width: 250px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+    background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+    background-size: contain;
+  }
+
+  .star-rating i {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    z-index: 1;
+    background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+    background-size: contain;
+  }
+
+  .star-rating input {
+    opacity: 0;
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    position: relative;
+  }
+
+  .star-rating input:hover+i,
+  .star-rating input:checked+i {
+    opacity: 1;
+  }
+
+  .star-rating i~i {
+    width: 40%;
+  }
+
+  .star-rating i~i~i {
+    width: 60%;
+  }
+
+  .star-rating i~i~i~i {
+    width: 80%;
+  }
+
+  .star-rating i~i~i~i~i {
+    width: 100%;
+  }
+
+  ::after,
+  ::before {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
+  }
+</style>
+{%endblock%}
+{% block content %}
+{% if user.is_authenticated %}
+<table class="table align-middle mb-0 bg-white w-75" style="margin-top: 5%; margin-left: 15%;">
+  <thead class="bg-light w-75">
+    <tr>
+      {% if messages %}
+      <div class="messages">
+          {% for message in messages %}
+          <center>
+          <div {% if message.tags %} style="color: rgb(248, 243, 243); font-size: medium;"class="{{ message.tags }}"{% endif %}>{{user.first_name}}, {{ message }}</div>
+          </center>
+          {% endfor %}
+      </div>
+      {% endif %}
+      <th>Course Code</th>
+      <th>Course Title</th>
+      <th>Curriculum</th>
+      <th>Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {%for course in course %}
+    <tr>
+      <td>
+        <div class="d-flex align-items-center">
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{course.csitcourse}}</p>
+          </div>
+        </div>
+      </td>
+      <td>
+        <p class="fw-normal mb-1">{{course.courseName}}</p>
+      </td>
+      <td>
+        <p class="fw-normal mb-1">{{course.curriculum_id}}</p>
+      </td>
+      <td>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal1-{{course.id}}">
+          Rate </button>
+        <!-- Modal -->
+        <div class="modal fade" id="Modal1-{{course.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6>{{course.csitcourse}} - {{course.courseName}}</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form id="form" action="" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                  <label for="recipient-name" class="col-form-label">User</label>
+                  <input type="text" id="user" name="user" value="{{user.username}}" class="form-control" id="id"
+                    readonly>
+                  <label for="recipient-name" class="col-form-label">Course</label>
+                  <input type="text" id="csitcourse" name="csitcourse" class="form-control"
+                    placeholder="Enter Job Title" value="{{course.csitcourse}}" readonly/>
+                  <label for="recipient-name" class="col-form-label">Course</label>
+                  <input type="text" id="curriculum" name="curriculum" class="form-control"
+                    placeholder="Enter Job Title" value="{{course.curriculum_id}}" readonly/>
+                  <br><br>
+                  <span class="star-rating">
+                    <input type="radio" name="rating" value="1"><i></i>
+                    <input type="radio" name="rating" value="2"><i></i>
+                    <input type="radio" name="rating" value="3"><i></i>
+                    <input type="radio" name="rating" value="4"><i></i>
+                    <input type="radio" name="rating" value="5"><i></i>
+                  </span>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" id="submitRating" name="submitRating">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+<!--Second-->
+
+  <table class="table align-middle mb-0 bg-white w-75" style="margin-top: 5%; margin-left: 15%;">
+    <thead class="bg-light w-75">
+      <tr>
+        <th>Course Code</th>
+        <th>Course Title</th>
+        <th>Rate</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for course2 in course2 %}
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{course2.csitcourse}}</p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <p class="fw-normal mb-1">{{course2.courseName}}</p>
+        </td>
+        <td>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal1-{{course2.id}}">
+            Rate </button>
+          <!-- Modal -->
+          <div class="modal fade" id="Modal1-{{course2.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6>{{course2.csitcourse}} - {{course2.courseName}}</h6>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form" action="" method="POST">
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <label for="recipient-name" class="col-form-label">User</label>
+                    <input type="text" id="user" name="user" value="{{user.username}}" class="form-control" id="id"
+                      readonly>
+                    <label for="recipient-name" class="col-form-label">Course</label>
+                    <input type="text" id="csitcourse" name="csitcourse" class="form-control"
+                      placeholder="Enter Job Title" value="{{course2.csitcourse}}" />
+                    <br><br>
+                    <span class="star-rating">
+                      <input type="radio" name="rating" value="1"><i></i>
+                      <input type="radio" name="rating" value="2"><i></i>
+                      <input type="radio" name="rating" value="3"><i></i>
+                      <input type="radio" name="rating" value="4"><i></i>
+                      <input type="radio" name="rating" value="5"><i></i>
+                    </span>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="submitRating" name="submitRating">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="table align-middle mb-0 bg-white w-75" style="margin-top: 5%; margin-left: 15%;">
+    <thead class="bg-light w-75">
+      <tr>
+        <th>Course Code</th>
+        <th>Course Title</th>
+        <th>Rate</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for course3 in course3 %}
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{course3.csitcourse}}</p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <p class="fw-normal mb-1">{{course3.courseName}}</p>
+        </td>
+        <td>
+          <!-- Button trigger modal -->
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal1-{{course3.id}}">
+            Rate </button>
+          <!-- Modal -->
+          <div class="modal fade" id="Modal1-{{course3.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6>{{course3.csitcourse}} - {{course3.courseName}}</h6>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form" action="" method="POST">
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <label for="recipient-name" class="col-form-label">User</label>
+                    <input type="text" id="user" name="user" value="{{user.username}}" class="form-control" id="id"
+                      readonly>
+                    <label for="recipient-name" class="col-form-label">Course</label>
+                    <input type="text" id="csitcourse" name="csitcourse" class="form-control"
+                      placeholder="Enter Job Title" value="{{course3.csitcourse}}" />
+                    <br><br>
+                    <span class="star-rating">
+                      <input type="radio" name="rating" value="1"><i></i>
+                      <input type="radio" name="rating" value="2"><i></i>
+                      <input type="radio" name="rating" value="3"><i></i>
+                      <input type="radio" name="rating" value="4"><i></i>
+                      <input type="radio" name="rating" value="5"><i></i>
+                    </span>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="submitRating" name="submitRating">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="table align-middle mb-0 bg-white w-75" style="margin-top: 5%; margin-left: 15%;">
+    <thead class="bg-light w-75">
+      <tr>
+        <th>Course Code</th>
+        <th>Course Title</th>
+        <th>Rate</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for course4 in course4 %}
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{course4.csitcourse}}</p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <p class="fw-normal mb-1">{{course4.courseName}}</p>
+        </td>
+        <td>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal1-{{course4.id}}">
+            Rate </button>
+          <!-- Modal -->
+          <div class="modal fade" id="Modal1-{{course4.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6>{{course4.csitcourse}} - {{course4.courseName}}</h6>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form" action="" method="POST">
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <label for="recipient-name" class="col-form-label">User</label>
+                    <input type="text" id="user" name="user" value="{{user.username}}" class="form-control" id="id"
+                      readonly>
+                    <label for="recipient-name" class="col-form-label">Course</label>
+                    <input type="text" id="csitcourse" name="csitcourse" class="form-control"
+                      placeholder="Enter Job Title" value="{{course4.csitcourse}}" />
+                    <br><br>
+                    <span class="star-rating">
+                      <input type="radio" name="rating" value="1"><i></i>
+                      <input type="radio" name="rating" value="2"><i></i>
+                      <input type="radio" name="rating" value="3"><i></i>
+                      <input type="radio" name="rating" value="4"><i></i>
+                      <input type="radio" name="rating" value="5"><i></i>
+                    </span>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="submitRating" name="submitRating">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{%else%}
+<div id="main">
+  <div class="fof" style="color:bisque;">
+      <h1>Please Log In!</h1>
+  </div>
+</div>
+{%endif%}
+{%endblock%}

@@ -1,0 +1,60 @@
+body{
+    background-color: #500e0e;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.text-maroon {
+    color: #610A0C;
+}
+
+.gold {
+    background-color: 	#f8c400;
+}
+
+.maroon {
+    background-color: #610A0C;
+}
+
+.nav-link{
+    color: #610A0C;
+}
+
+.nav-link:hover{
+    color: #f8c400;
+}
+
+.nav-item:hover{
+    background-color: #610A0C;
+    border-radius: 10px;
+}
+
+.active {
+    background-color: #610A0C;
+    color: #E0C007 !important;
+    border-radius: 10px;
+}
+
+.navbar-brand {
+    color:#610A0C;
+}
+
+.navbar-toggler {
+    background-color: #610A0C;
+    border-radius: 10px;
+    
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;            /* Footer height */
+  }
+  
+  * {
+    transition: all 0.6s;
+}

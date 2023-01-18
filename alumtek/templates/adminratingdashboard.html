@@ -1,0 +1,50 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="intro" style="margin-top: 10%;">
+
+    <div class="gradient-custom-1 h-100">
+        <div class="mask d-flex align-items-center h-100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="table-responsive bg-white">                           
+                            <table class="table mb-0">
+                                <thead>
+                                   <div style="color: #873439; font-size: 30px; font-family: Bebas Neue;" >
+                                    <center>
+                                    2018-2019 Curriculum
+                                    </center>
+                                   </div> 
+                                    <tr>
+                                        <th scope="col">Course Code</th>
+                                        <th scope="col">Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for average in average %}
+                                    <tr>
+                                        <th scope="row" style="color: #666666;">{{average.csitcourse}}</th>
+                                        <td>{{average.avg_rating}}</td>
+                                    </tr>
+                                    {%endfor%}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%else%}
+<div id="main">
+  <div class="fof" style="color:bisque;">
+      <h1>Please Log In!</h1>
+  </div>
+</div>
+{%endif%}
+{%endblock%}

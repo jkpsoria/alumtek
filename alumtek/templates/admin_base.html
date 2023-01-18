@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumtek</title>
+  <!-- CSS bootstrap CDN -->
+  <link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="{%static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Montserrat' !important;
+    }
+
+    .card-margin {
+      margin-bottom: 1.875rem;
+    }
+    .card {
+      border: 0;
+      box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+      -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+    }
+
+    .jobboard {
+      margin-top: 5%;
+      margin-left: 20%;
+      color: white;
+      position: relative;
+      line-height: 1;
+    }
+
+    .jobboard-text {
+      font-size: 30px;
+    }
+
+    .card-margin {
+      margin-bottom: 1.875rem;
+    }
+
+    .card {
+      border: 0;
+      box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+      -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+    }
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #ffffff;
+      background-clip: border-box;
+      border: 1px solid #e6e4e9;
+      border-radius: 8px;
+      margin-top: 10%;
+    }
+
+    .card .card-header.no-border {
+      border: 0;
+    }
+
+    .card .card-header {
+      background: none;
+      padding: 0 0.9375rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      min-height: 50px;
+    }
+
+    .card-header:first-child {
+      border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
+    }
+    .carousel-caption {
+      display: flex;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      position: unset;
+    }
+
+    .welcome {
+      font-size: 80px;
+      color: #ffff;
+      margin: auto;
+    }
+
+    /* span {
+      color: #f8c400;
+      font-size: 80px;
+    } */
+
+    .container {
+      margin: auto;
+      padding-left: 0;
+
+    }
+
+    .bodytext {
+      color: #ffffff;
+      line-height: 1.5;
+      font-size: 20px;
+    }
+
+    .form-group {
+      line-height: 2;
+    }
+
+    a {
+      all: unset;
+    }
+
+    .surveyform {
+      margin: 10%;
+    }
+
+    fieldset {
+      overflow: hidden
+    }
+
+    .some-class {
+      float: left;
+      clear: none;
+    }
+
+    label {
+      float: left;
+      clear: none;
+      display: block;
+      padding: 0px 1em 0px 8px;
+    }
+    #main {
+    display: table;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+}
+
+.fof {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.fof h1 {
+    font-size: 50px;
+    display: inline-block;
+    padding-right: 12px;
+    animation: type .5s alternate infinite;
+}
+
+@keyframes type {
+    from {
+        box-shadow: inset -3px 0px 0px #888;
+    }
+
+    to {
+        box-shadow: inset -3px 0px 0px transparent;
+    }
+}
+
+  </style>
+
+  {% block loginstyle %}
+  {% endblock %}
+
+</head>
+
+<body>
+
+  <!-- Main Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark gold">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse ps-auto" id="navbarTogglerDemo01">
+        <a class="navbar-brand d-flex justify-content-center" href=""><img src="{% static 'banner3.png' %}" width="345"
+            alt=""></a>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link ps-2" href="{% url 'AlumTeknew:admin_dashboard' %}">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ps-2" href="{% url 'AlumTeknew:curriculumList' %}">Ratings</a>
+          </li>
+          <li class="nav-item dropdown ">
+            <a class="nav-link ps-2" type="text" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+              Functions</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item text-maroon" href="{% url 'AlumTeknew:admin_job_list_view' %}">View Data</a></li>
+              <li><a class="dropdown-item text-maroon" href="{% url 'AlumTeknew:my_add_user_view' %}">Create User</a></li>
+              <li><a class="dropdown-item text-maroon" href="{% url 'AlumTeknew:admin_jobs' %}">Create Jobs</a></li>
+              <li><a class="dropdown-item text-maroon" href="{% url 'AlumTeknew:my_add_curriculum_view' %}">Create Curriculum</a></li>
+              <li><a class="dropdown-item text-maroon" href="{% url 'AlumTeknew:my_add_course_view' %}">Create Course</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown ">
+            <a class="nav-link ps-2" type="text" id="dropdownMenuButton2" data-toggle="dropdown" aria-expanded="false">
+              {{user.username}}</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+              <li><a class="dropdown-item text-maroon" href="{% url 'alumni_logout' %}">Log Out</a></li>
+            </ul>
+          </li> 
+          {% else %}
+
+
+          {% block active %}
+          {% endblock %}
+          <li class="nav-item ">
+            <a class="nav-link ps-2" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ps-2" href="#">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ps-2" href="#">Contact us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ps-2" href="{% url 'admin_login' %}">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+  {% block content %}
+
+  {% endblock %}
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+  integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+  crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script>
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels:["Alumni Working Status"],
+        datasets: [{
+          label: 'Employed',
+          data: ["{{employed_count.count}}"],
+          backgroundColor: ['#f8c400']
+        },
+        {
+          label: 'Unemployed',
+          text: 'Unemployed',
+          data: ["{{unemployed_count.count}}"],
+          backgroundColor: ["#8c383e"]
+        }]
+      },
+      options: {
+        aspectRatio: 1,
+        title: {
+          display: true,
+          text: "Employed Alumni",
+          fontSize: 20,
+          fontColor: "black"
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              fontColor: "black",
+              fontSize: 18,
+              stepSize: 1,
+              beginAtZero: true
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: "black",
+              fontSize: 18,
+              stepSize: 1,
+              beginAtZero: true
+            }
+          }],
+          
+        }
+      }
+
+    });
+
+    var xValues = ["Local", "International", "None"];
+    var yValues = ['{{local_count.count}}', '{{international_count.count}}', '{{none_count.count}}'];
+    var barColors = [
+      "#ffdf16",
+      "#f8c400",
+      "#8c383e",
+    ];
+    new Chart("myChart2", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        aspectRatio: 1,
+        title: {
+          display: true,
+          text: "Alumni Workplace",
+          fontSize: 20,
+          fontColor: "black"
+        }
+      }
+    });
+</script>
+<script>
+  $(document).ready(function(){
+    $('#data').after('<div id="nav"></div>');
+    var rowsShown = 8;
+    var rowsTotal = $('#data tbody tr').length;
+    var numPages = rowsTotal/rowsShown;
+    for(i = 0;i < numPages;i++) {
+        var pageNum = i + 1;
+        $('#nav').append('<a href="javascript:void()" rel="'+i+'">'+pageNum+'</a> ');
+    }
+    $('#data tbody tr').hide();
+    $('#data tbody tr').slice(0, rowsShown).show();
+    $('#nav a:first').addClass('active');
+    $('#nav a').bind('click',function(){
+
+        $('#nav a').removeClass('active');
+        $(this).addClass('active');
+        var currPage = $(this).attr('rel');
+        var startItem = currPage * rowsShown;
+        var endItem = startItem + rowsShown;
+        $('#data tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+        css('display','table-row').animate({opacity:1}, 300);
+    });
+});
+</script>
+<script>
+  $(document).ready(function(){
+    $('#rating').after('<div id="nav"></div>');
+    var rowsShown = 8;
+    var rowsTotal = $('#rating tbody tr').length;
+    var numPages = rowsTotal/rowsShown;
+    for(i = 0;i < numPages;i++) {
+        var pageNum = i + 1;
+        $('#nav').append('<a href="javascript:void()" rel="'+i+'">'+pageNum+'</a> ');
+    }
+    $('#rating tbody tr').hide();
+    $('#rating tbody tr').slice(0, rowsShown).show();
+    $('#nav a:first').addClass('active');
+    $('#nav a').bind('click',function(){
+
+        $('#nav a').removeClass('active');
+        $(this).addClass('active');
+        var currPage = $(this).attr('rel');
+        var startItem = currPage * rowsShown;
+        var endItem = startItem + rowsShown;
+        $('#rating tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+        css('display','table-row').animate({opacity:1}, 300);
+    });
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+  integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+  crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
